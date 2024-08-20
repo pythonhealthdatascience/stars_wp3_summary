@@ -234,13 +234,134 @@ The remaining components can be implemented though:
 
 #### README
 
-I improved the README clarity, structure and appearance. This included adding:
+I improved the README clarity, structure and appearance. This included adding banner image with logos, extra badges, table of contents, all the information from `ID6184 Using the R decision model..` (e.g. installation guide with images, overview of input files, future versions)
 
-* 
+<details>
+<summary><b>STARS framework reflections</b></summary>
+
+* Whether anything from how changed README can be of relevance
+
+</details>
+
+### 20 August 2024
+
+#### Tidying
+
+Removed empty READMEs from folders, although the README in `1_Data` remains as it seems to have some example text but also potentially some actual relevant text (`gpop adjustment`). May later incorporate elsewhere, as currently a little confusing.
+
+#### Getting started with package
+
+The required dependencies are already in the environment. As from [this guide](https://sahirbhatnagar.com/rpkg/), these are:
+
+* `usethis` - create package
+* `devtools` - build, install and check package
+* `roxygen2` - document functions
+* `rmarkdown` - create vignettes
+
+Ran the command `usethis::use_description()` to create DESCRIPTION file. Had to modify the folder name from `stars-eom-rcc` to `StarsEomRcc` (as the former was not a suitable package name). Modified the `DESCRIPTION` file. I guessed at likely reasonable answers for `author` and `role` but this would need review.
+
+Add each package to imports of `DESCRIPTION` with `usethis::use_package("", min_version=TRUE)`. I used minimum version to indicate what versions of the package I used, following recommendations from the [r-pkg documentation](https://r-pkgs.org/description.html). I worked through each listed to install in `Model_Structure.R`. For tidyverse, an error message appeared:
+
+> Error: 'tidyverse' is a meta-package and it is rarely a good idea to depend on it. Please determine the specific underlying package(s) that offer the function(s) you need and depend on that instead. For data analysis projects that use a package structure but do not implement a formal R package, adding 'tidyverse' to Depends is a reasonable compromise. Call `use_package("tidyverse", type = "depends")` to achieve this.
+
+On the assumption that we are doing the latter, I have add it to depends.
+
+Then, continuing to follow [this tutorial](https://sahirbhatnagar.com/rpkg/), ran:
+
+* `usethis::use_namespace()`: created empty namespace file
+* `base::dir.create("R")`: create empty `R/`
+* `usethis::use_package_doc()`: created `R/StarsEomRcc-package.R` so can run `?StarsEomRcc`
+* `usethis::use_readme_rmd()` (but then deleted)
+
+Restarted RStudio. However, `renv::status()` is showing all packages as uninstalled? I ran `renv::restore()` and this resolved the issue.
+
+In `.Rproj`, set `Restore .RData into workspace at startup` to `No`. However, it didn't have the ROxygen option from the tutorial.
+
+Then tried to use devtools, but it said it wasn't installed despite it being in `renv/`? Tried `renv::install("devtools")` which worked quick. The only difference now for `renv::status()` was that I'd upgraded shiny.
+
+Trying an example function, I ran `use_r("excel_extract")` and then copied `f_excel_extract` and `f_excel_cleanParams` from `3_Functions/excel/extract.R`. Then ran `devtools::load_all()`, and `f_excel_extract()` (to see it was available, as auto complete popped up), and then `exists("f_excel_extract", where = globalenv(), inherits = FALSE)` (to confirm I hadn't sourced it).
+
+Then ran `check()`. This highlighted error in `DESCRIPTION` which I resolved. It requires a creator, which I had put as Darren, but it also requires an email for the creator. As Darren's email is not publicaly available online, I switched this over to Dawn, but would require review. When running `check()`, it add "dependency on R >= 3.5.0 because serialized objects in serialize/load version 3 cannot be read in older versions of R." I then switched this to my version (4.4). Lots of errors and warnings were returned from the check.
+
+#### Addressing warnings from check()
+
+```
+❯ checking package subdirectories ... NOTE
+  Found the following CITATION file in a non-standard place:
+    CITATION.cff
+  Most likely ‘inst/CITATION’ should be used instead.
+```
+
+Tried moving to `inst/`, as per [docs](https://r-pkgs.org/R-CMD-check.html#package-structure).
+
+```
+❯ checking DESCRIPTION meta-information ... NOTE
+  Licence components which are templates and need '+ file LICENCE':
+    MIT
+```
+
+Tried adding `+ file LICENSE` to `DESCRIPTION`.
+
+```
+❯ checking for hidden files and directories ... NOTE
+  Found the following hidden files and directories:
+    .github
+  These were most likely included in error. See section ‘Package
+  structure’ in the ‘Writing R Extensions’ manual.
+```
+
+Tried running `use_build_ignore(".github/")` to add regular expression to `.Rbuildignore` to ignore `.github/`.
+
+```
+❯ checking R code for possible problems ... NOTE
+  f_excel_cleanParams: no visible global function definition for
+    ‘as.data.table’
+  f_excel_cleanParams : <anonymous>: no visible binding for global
+    variable ‘Parameter.name’
+  f_excel_extract: no visible global function definition for
+    ‘loadWorkbook’
+  f_excel_extract: no visible global function definition for
+    ‘getNamedRegions’
+  f_excel_extract : <anonymous>: no visible global function definition
+    for ‘read.xlsx’
+  Undefined global functions or variables:
+    Parameter.name as.data.table getNamedRegions loadWorkbook read.xlsx
+```
+
+Add the functions and their sources using `@importFrom`
+
+```
+❯ checking top-level files ... NOTE
+  File
+    LICENSE
+  is not mentioned in the DESCRIPTION file.
+  Non-standard files/directories found at top level:
+    ‘1_Data’ ‘2_Scripts’ ‘3_Functions’ ‘4_Output’ ‘CHANGELOG.md’
+    ‘CITATION.cff’ ‘ID6184 Using the R decision model (EAG instructions)
+    noACIC 30.07.2024.docx’ ‘img’ ‘test.Rmd’
+```
+
+**Changelog**: In R, the convention with packages seems to be to keep a `NEWS.md` file rather than a `CHANGELOG`. I created one using `usethis::use_news_md()`, and transferred the information from `CHANGELOG.md`.
+
+**Img**: Images should be saved in `man/figures/README` for an R package ([as here](https://r-pkgs.org/other-markdown.html#sec-readme))
+
+I then renamed the folder from `StarsEomRCC` to `StarsEOMRCC` and same renv issue as before, so again, `renv::restore()` and `renv::install("devtools")`.
+
+<details>
+<summary><b>STARS framework reflections</b></summary>
+
+* Convention differences in R like `NEWS.md` and `CITATION` location (specific to package, or in general?)
+* That it's not a super easy task to switch into R package structure, particularly if unfamiliar with how R packages should be structured and work
+
+</details>
+
+I've not addressed all the items from `check()` but decided to run again.
+
+#### Re-running check
+
+There was an error with my addition of R version to Depends in DESCRIPTION so removed that.
 
 ## TODO list
-
-`ID6184 Using the R Decision model (EAG instructions) noACIC.docx`
 
 * Add which files to run to do which analyses (as doesn't currently mention filenames) and it took a little while to understand which scripts you can run or not
 * There were lots of abbreviations (mostly from instructions document except those marked (*)) which it would be good to define somewhere, e.g. 
@@ -257,19 +378,12 @@ I improved the README clarity, structure and appearance. This included adding:
 
 `1_Data/`
 
-* Took a while to match up to the filenames - would be good to provide more names in documentation
-	* Excel user interface:`ID6184_RCC_model inputs FAD version [ACIC redacted, cPAS redacted and CIC redacted].xlsm`
-	* Proportional hazards NMA CODA RDS file: `PH_NMA_CODA.rds`
-	* Fractional polynomials NMA RDS file: `FPNMA_means.rds`
-	* Raw data file with pseudo-IPD for all trials for survival analysis: `IPD_R_input_noACIC.xlsx`
-	* RDS output from survival analysis using RWE and company data: `Survival_analysis_noTTDorTTPorPPS[NoACIC].rds`
 * Add data dictionaries (or similar) for files, as currently don't have
 * Remove: `README.Rmd` and accompanying files (`README.docx`, `library.bib`, `elsvan.csl`, `elsnumalph.csl`)
 
 `2_Scripts/`
 
-* Remove `README.Rmd`
-* Remove `output_script_old.R` (appears to be old and unused)
+* `standalone scripts` - are they used? what are they?
 * Add comments and doc strings to files without (note: `Model_Structure.R` and `probablistic_model.R` has great amount of comments and detail)
 * Files:
 	* `Model_Structure.R` - model
@@ -280,23 +394,12 @@ I improved the README clarity, structure and appearance. This included adding:
 
 `3_Functions/`
 
-* Remove `README.Rmd`, `elsnumalph.csl`, `elsvan.csl`
 * Add comments and docstrings (some have very detailed docstrings, some partial, and some without)
 * Appears that output save location might be Downloads? `subsequent_tx_weighted_averages.R`
-
-`4_Output/`
-
-* Delete `README.Rmd`
-* Add placeholder file if required
 
 Convert to package structure
 
 * Include the renv installed packages in DESCRIPTION
-* The required dependencies are already in the environment. As from [this guide](https://sahirbhatnagar.com/rpkg/), these are:
-	* `usethis` - create package
-	* `devtools` - build, install and check package
-	* `roxygen2` - document functions
-	* `rmarkdown` - create vignettes
 
 `Tests/`
 
