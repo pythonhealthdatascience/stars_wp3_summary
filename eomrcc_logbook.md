@@ -441,17 +441,58 @@ Resuming working through the model code.
 <summary><b>STARS framework reflections</b></summary>
 
 The biggest impact here is that this is a really big and complicated piece of work, so most my time is spent in understanding what the model is doing.
+
+And so, whilst my changes will help aid reuse, reality is that a massive factor in reuse relates to model complexity - although, I can't necessarily speak to this, as from a health economics perspective, perhaps that is a facilitator.
+
+The complexity is commented on in their article about developing the model: "...the sheer scale of the decision problem in terms of the systematic review, network meta-analyses, and clinical consultation work required. This in turn led to a complex, computationally expensive model"
+</details>
+
+### 12 September
+
+Continuing to work on understanding what they have done (before and during code).
+
+<details>
+<summary><b>STARS framework reflections</b></summary>
+
+(1) Implementing R package was something I'd hoped to do as its a nice way to tidy up code and integrate functions with docs and a standard way to share something, but I haven't when I realised that it's just too complex and is already set up in a way that is fairly clear (in the sense that it seperates out data and scripts and outputs and so on). This is a specific reflection to it being retrospective, that with it all done, it's not worth changing things, and its very complex.
+
+(2) Acronyms very important to be in documentation for this one - and that includes acronyms used in the code and not just in the docs (although not just like random variable names, but more like comments in the code and so on)
+</details>
+
+### 13 September
+
+Finished the `code_walkthrough.qmd`.
+
+Started working on the docs, beginning with the basic and complex overview.
+
+## 16 September
+
+Finished up complex and basic overviews.
+
+<details>
+<summary><b>STARS framework reflections</b></summary>
+
+Importance of the diagrams in making it clearer
+</details>
+
+## 17 September
+
+Working on the doc pages that walk through input data, model code and results.
+
+
+<details>
+<summary><b>STARS framework reflections</b></summary>
+
+Overlap between detailed model documentation and the README. Does everything need to be in both?
 </details>
 
 ## TODO list
 
 * Add which files to run to do which analyses (as doesn't currently mention filenames) and it took a little while to understand which scripts you can run or not
 
-
 `1_Data/`
 
 * Add data dictionaries (or similar) for files, as currently don't have
-* Remove: `README.Rmd` and accompanying files (`README.docx`, `library.bib`, `elsvan.csl`, `elsnumalph.csl`)
 
 `2_Scripts/`
 
