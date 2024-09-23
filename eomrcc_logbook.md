@@ -541,6 +541,16 @@ Finish code walkthrough for docs.
 
 Wrote walkthrough of the output report, as well as pages on probabilistic analysis and scenario analysis.
 
+<details>
+<summary><b>STARS framework reflections</b></summary>
+
+Tom suggested I consider whether there have been any differences in trying to implement STARS for this, versus a DES model, given it was designed with DES model.
+
+I cannot comment specifically on a comparison, as I have not yet tried to implemented this for a DES model.
+
+However, my reflections on this question are that, at the end of the day, STARS is very applicable to this model also. This can be articulated by looking - once I have finished this - at anything in STARS that I *did not implement* and why that was (and whether it was due to model type, or another reason). Moreover, anything I *did implement* that was not in STARS. So worth looking over everything at the end to document this!
+</details>
+
 #### Annotated reporting guidelines
 
 STARS suggests that detailed documentation includes annotated reporting guidelines, with an example like STRESS-DES for discrete event papers. As this is a different context (health economics paper where economic model is partitioned survival or markov, and includes other modelling e.g. network meta-analysis), it would require different reporting guidelines.
@@ -564,40 +574,32 @@ My understanding of the validation undertaken is limited to this description fro
 "Within the model results and validation addendum which will follow this report, model outputs will be compared to the data used as model inputs (for example visual comparison to Kaplan Meier data) to ensure the appropriateness of model structure and data derivation. The model
 will then be compared to the projections from other models previously used for NICE STAs in the same decision point. Clinical expert input will be used to ensure that the model retains clinical face validity."
 
-## TODO list
+#### Contribution instructions
 
-* Add which files to run to do which analyses (as doesn't currently mention filenames) and it took a little while to understand which scripts you can run or not
+I've not add a contributing page, as this is on behalf of the PenTAG team, and my understanding that the recommended method for getting in touch is simply via email, so I have just add this to the home page.
 
-`2_Scripts/`
+This is based on the end of `Model_Structure.R` which states:
 
-* `standalone scripts` - are they used? what are they?
-* Add comments and doc strings to files without (note: `Model_Structure.R` and `probablistic_model.R` has great amount of comments and detail)
-* Files:
-	* `Model_Structure.R` - model
-	* `probablistic_model.R` - run model probabilistically, uses HPC
-	* `process PSA output.R` - think this could be the equivalent of `output_script.R` but for the probablistic model? PSA not defined, but assuming it is "probablistic safety assessment"
-	* `output_script.R`- some hard-coded file paths (e.g. "C:/Users/dl556"), don't *think* this runs the model (?) but just processes results - although the final function that produces the word document matches up to that from Model_Structure, so assuming this is duplication of that but allowing to produce report from having data already (?) - would be simpler to define that as part of model script, and have a way of preventing the model running (?) although it might be different?
-* Lists commented out `install.packages()` - could switch to DESCRIPTION (with those packages listed) and renv? Also, specific versions that are compatable with R 4.3.1.
+> Additional changes were originally planned during Phase 2 of this pilot following use for the initial decision problem including
+>
+> - Addition of Shiny user interface
+> - Genericisation of the code to allow wider use
+> - Programming and analysis of model outputs related specifically to sequencing, this may include value of information analyses
+>
+> Unfortunately funding for this has not been confirmed currently. 
+>
+> If you are interested in discussing or funding further development please contact the PenTAG team at pentag@exeter.ac.uk
 
-`3_Functions/`
+#### Documentation of modelling cycle using TRACE
 
-* Add comments and docstrings (some have very detailed docstrings, some partial, and some without)
-* Appears that output save location might be Downloads? `subsequent_tx_weighted_averages.R`
-* There is a file in `3_Functions/excel` called `excel extraction example.xlx` that looks like a file from development that might no longer be needed. <mark>check if can remove</mark>
+Not possible as doing this retrospectively.
 
-`Tests/`
+#### Which files to receive a code walkthrough
 
-* Add comments
+I wrote the code walkthrough for `Model_Structure.R` as that was described by the model team as the "main script". There are other scripts, and you could argue to do similar walkthroughs for them - in particular, `probabilistic_model.R`. However, I have limited myself to just the former in this case, and instead just described other scripts.
 
-Recommendations from STARS for detailed docs: Open and high quality documentation on how the model is implemented and works (e.g. via notebooks and markdown files, brought together using software like Quarto and Jupyter Book). Suggested content includes:
+<details>
+<summary><b>STARS framework reflections</b></summary>
 
-* Plain english summary of project and model
-* Clarifying license
-* Citation instructions
-* Contribution instructions
-* Model installation instructions
-* Structured code walk through of model
-* Documentation of modelling cycle using TRACE
-* Annotated simulation reporting guidelines (BUT Stress-DES is not relevant)
-* Clear description of model validation including its intended purpose
-
+Levels of detail that one could go into.
+</details>
