@@ -603,3 +603,40 @@ I wrote the code walkthrough for `Model_Structure.R` as that was described by th
 
 Levels of detail that one could go into.
 </details>
+
+#### Legacy files and code
+
+The repository contains what appears to be legacy code within files, or legacy files (e.g. old script for processing outputs). I have not touched these, but would suggest to the team that any no longer needed are removed, for clarity.
+
+### Tuesday 24 September
+
+Creating a basic shiny application. Their ambitions for this are:
+
+* `Model_Structure.R` -
+  * "During Phase 2 a Shiny front-end will be added to the model which will allow an alternative mechanism to upload these types of inputs" - which is in reference to the inputs from Excel
+  * "Note that draw_plots will be a switch in the shiny application" - which is in reference to the draw_plots input of `f_surv_runAllTSD14()`
+* [Final analysis plan](https://www.nice.org.uk/guidance/gid-ta11186/documents/assessment-report-3) -
+  * "Within Phase 4 of the project, the health economic model will be embedded into an interactive web browser using R-Shiny functionality to provide an easy-to-understand user-interface. This is intended to test the use of such functionality to support the development, critique and understanding of the model structure (and underlying R code) for decision makers and other stakeholders in future models."
+* [Assessment report](https://www.nice.org.uk/guidance/ta964/documents/assessment-report) -
+  * "A later stage of this pilot following the evaluation of cabozantinib + nivolumab will involve the incorporation of a Shiny front-end to the R model. Shiny is an open source R package enables the user to build web applications using R. 221 This will allow model users to interact via an easyto-understand user-interface operating via their web browser."
+
+As per Tom's recommendation, I'll build a simple Shiny application that allows a few inputs, has some basic processing and a simple output. I decided to make it an app that calculates valid treatment sequences, depending on inputs.
+
+I checked what inputs the calculation of valid treatment sequences depended on in the app, and found this to be:
+
+* `p$basic$R_maxlines`
+* `i$List_comparators`
+
+I built up from there, from having all possible sequences, to trying to make an app that would allow the user to generate the valid sequences.
+
+### Wednesday 25 September
+
+A little bit of time spent continuing to work on the app.
+
+### Thursday 26 September
+
+Finished app.
+
+### Friday 27 September
+
+Created release for app.
