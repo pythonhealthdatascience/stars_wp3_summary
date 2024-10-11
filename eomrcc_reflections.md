@@ -21,7 +21,9 @@ This is based on the logbook kept whilst applying the framework, `eomrcc_logbook
 
 ## Rough notes
 
-### What I did or did not implement from the framework (plus any extras!)
+## What I did or did not implement from the framework (plus any extras!)
+
+An important reflection from this application of the framework is **whether there were any differences, compared to implementing for DES** (as this was not a DES model). I cannot comment on a comparison itself at this point, as I have not tried to do this for DES. However, I did find STARS to be highly applicable. This can be articulated by **what** I did or did not implement from the framework, and **why** (i.e. was reason for not implementing specific to it not being a DES model, or was it another reason).
 
 | Component | Implemented? Any details? Why/Why not? |
 | - | - |
@@ -37,7 +39,7 @@ This is based on the logbook kept whilst applying the framework, `eomrcc_logbook
 | **Optional components** |
 | Enhanced documentation: Open and high quality documentation on how the model is implemented and works  (e.g. via notebooks and markdown files, brought together using software like Quarto and Jupyter Book). Suggested content includes:<br>• Plain english summary of project and model<br>• Clarifying license<br>• Citation instructions<br>• Contribution instructions<br>• Model installation instructions<br>• Structured code walk through of model<br>• Documentation of modelling cycle using TRACE<br>• Annotated simulation reporting guidelines<br>• Clear description of model validation including its intended purpose | ✅ More details below... |
 | Documentation hosting: Host documentation (e.g. with GitHub pages, GitLab pages, BitBucket Cloud, Quarto Pub) | ✅ |
-| Online coding environment: Provide an online environment where users can run and change code (e.g. BinderHub, Google Colaboratory, Deepnote) | ❌ Due to how computationally expensive the analysis is |
+| Online coding environment: Provide an online environment where users can run and change code (e.g. BinderHub, Google Colaboratory, Deepnote) | ❌ Due to how computationally expensive the analysis is. Although would there be any argument for it? To run part of model? Or perhaps not? |
 | Model interface: Provide web application interface to the model so it is accessible to less technical simulation users | ✅ |
 | Web app hosting: Host web app online (e.g. Streamlit Community Cloud, ShinyApps hosting) | ✅ |
 
@@ -55,20 +57,7 @@ Delving into each aspect of the detailed documentation...
 | Annotated simulation reporting guidelines | ❌ No because felt like duplication with information in NICE reports which are very detailed and follow standardised reporting requirements |
 | Clear description of model validation including its intended purpose | ❌ Not done as my knowledge is limited purely to this description from the [assessment report](https://www.nice.org.uk/guidance/ta964/documents/assessment-report):<br>"Within the model results and validation addendum which will follow this report, model outputs will be compared to the data used as model inputs (for example visual comparison to Kaplan Meier data) to ensure the appropriateness of model structure and data derivation. The model will then be compared to the projections from other models previously used for NICE STAs in the same decision point. Clinical expert input will be used to ensure that the model retains clinical face validity."
 
-Extra things I did that weren't in the framework...
-
-| Extra item | Any details? Why? |
-| - | - |
-| Acronyms | Important as there are acronyms used elsewhere with no definitions given and found that quite confusing when I first was looking through things<br><br>Including acronyms used in the code itself... not random variable names, but like meaningful ones in file names or variable names, or acronyms used in comments |
-| Context (e.g. NICE appraisals, papers, reports) (i.e. related documents) | This felt important! To mention. It's that clear link from there to the code (like for paper in STRESS), but in this case, also vice versa, making sure to link from code to paper/s |
-| Detailed summary | This felt like one of the most important pages to me! A more technical explanation of the model. I'm not sure if you would cover it by including annotated reporting guidelines? I would argue not, as that could be as simple as yes/no, and very little info. And this is about having a clear, easy to read narrative of what the model does and how it works, in detail, which is fundamental to actually understanding a model, and therefore to reuse. |
-| CHANGELOG | This was add to repository itself (although I did also display in the site but don't think that is essential/too important). Main thing is just having in repo, as it is just a nice thing to do! |
-
-**Overlap** between hosted docs and README not a bad thing... but does everything need to be in both?
-
-I found **diagrams** SUPER IMPORTANT for making things clearer in the detailed and plain english summaries as there was so much interlinked analysis.
-
-**Version control**. Version control history and CHANGELOG are both important. Version control history comes up alot in WP1 (ie. things just uploaded). In this case that did happen but partly by necessity of it needing to be kept private.
+<!--TODO: Finish sorting these notes into the categories below-->
 
 It took a **long time** to understand what the code did
 
@@ -84,60 +73,13 @@ It took a **long time** to understand what the code did
 
 They had packages listed and R version, but I had difficulty trying to backdate to work with their R version and just ended up on latest of everything. I made renv which may help address it as that has R version and package version and all dependencies, but also maybe not, as I know some people struggle to restrore renv, though I can't speak from experience on this.
 
-Model slow ot run. Found it was quickest with no parallel processing. Once did longest bit, from then on for that bit, I just loaded the pre-run results.
-
-Legacy code is confusing, best to remove it if possible.
-
-* Removing legacy file as well as legacy code (e.g. blank sub folder READMEs)
-* But also within file legacy code, inc. eg. exact duplicate lines of code, or inputs for functions that are no longer used, and not just like unused functions or lines of code
-* And whole files with old code
-
-CHANGELOG and releases are not mentioned in framework but feel important as handing at demarking specific points in time. In context of reproduction, that could be about e.g. specific version matching with paper, and allowing changes since. In context of reuse, that could just be generally, about changes made, showing model development, particularly if start using then gets worked on more.
-
-Enabler: Already familiar with Quarto... although, less familiar with Shiny, and still got on fine with that.
-
-Enabler: Code already structured into functions and seperate folders
-
-Timings:
-
-* Essential = speedy
-* Docs = very long time
-* Hosting = speedy
-* App = pretty quick, although I only did one aspect, in this case it would be very complex to do all inputs modified in app and then code run, but would require consideration of how best to implement in this case, given computation time, number of inputs, complexity of inputs. E.g. selection of pre-run models with specific scenarios
-* Online code = not suitable du to computation time. although would there be any argument for it? to run part of model? or perhaps not?
-
-ORCID: identified from online serach
-
-Citation: created CFF with cffinit
-
-Minimal docs: I did license type and funding, but that is not currently in framework. Its something we often do though. How important is it?
-
 Minimal docs: "how to vary parameters to run new experiments" - initially I found this requirement quite daunting but then I realised it can be quite a simple statement referring to the scripts and/or functions as you would need to change (rather than delving into the specifics)
 
 * Essential STARS doesn't require deeper understanding from you, or to be giving deeper understand to the reader, and can just be about guiding them on to where to get started
 
-I improved the README clarity, structure and apeparance. Banner image with logos, badges, table of contents, info from the word document
-
-* Looking at compiled examples of good READMEs helped with this
-* This was quick (and fun) to do
-* Improves clarity and readability but no more deeper understanding
-
-When applying the framwork, I didn't refer to the STARS paper, but instead to my own notes on each part of framework from paper, which I made for evaluating articles for WP1. I found it important/handy to have framework available as list with information needed about each part of framework incorporated into that list.
-
-Had planned to change to package as: (a) standardised structure of code, and (b) standardised documentation (e.g. docstrings, function descriptions)
-
-* From this, noticed convention differences. E.g. R packages want `NEWS.md` rather than `CHANGELOG.md`. They also want a `CITATION` file rather than a `CITATION.cff`. Although there is no one right way to do things, and you could argue reasons either way to use one or the other.
-    * This does point to benefit of including citation info in README too
-* It is not easy to just switch a complicated fully deevloped model into R package structure, particularly if unfamiliar with R packages
-    * This reflection feels specific to the retrospective application of the framework. I think it would have been easier / more straightforward, if had wanted, to start with package structure from early on and then build it up as build up complexity
-    * However, it is not impossible. I did it retrospectively for IPACS. So I think a part of this is complexity, and not just been reotrpsective. To turn IPACS into a package, it required a super deeper understanding of what code was all doing and how every line worked. ANd although I managed to improve my understanding of this model enough to make the documentation, to change it to package would've required way more (e.g. for example, knowing how to write each docstring and parameter inputs and outputs and so on)
-* Package adds alot of procedure and requirements that, on reflection, might nto actually be that beneficial. I ended up focusing on understanding code and developing documentation
-    * Would be handy to know guidance on when package structure can be handy, or necessary, or unnecessary
-        * There are varying thoughts and recommendations on how best to structure code, and its not one size fits all. Could be nice to refer to these examples? Like that nice R research compendium one?
-
 Regarding the web application, scope is important, and capacity, and what and why you make an app. In this case, computationally intensive and loads of inputs and complicated inputs. Not as simple as just popping into into an app.
 
-* They are hoping for grant to explore this. They will need to consider if users can sit and wait through wrun time, or if it can be sped up somehow, or if you can have some elements pre run, or limited to certain part of analysis.
+* They are hoping for grant to explore this. They will need to consider if users can sit and wait through run time, or if it can be sped up somehow, or if you can have some elements pre run, or limited to certain part of analysis.
 * Regardless of what level, it is still possible to achieve their stated aims to varying degrees
     * `Model_Structure.R` -
         * "During Phase 2 a Shiny front-end will be added to the model which will allow an alternative mechanism to upload these types of inputs" - which is in reference to the inputs from Excel
@@ -147,18 +89,95 @@ Regarding the web application, scope is important, and capacity, and what and wh
     * [Assessment report](https://www.nice.org.uk/guidance/ta964/documents/assessment-report) -
         * "A later stage of this pilot following the evaluation of cabozantinib + nivolumab will involve the incorporation of a Shiny front-end to the R model. Shiny is an open source R package enables the user to build web applications using R. 221 This will allow model users to interact via an easyto-understand user-interface operating via their web browser."
 
-Any differences doing this than when implement for DES?
+## Sorting notes into sections...
 
-* Can't comment on the comparison itself as I have not tried to do this for DES
-* STARS as very applicable. This can be articulated by WHAT I did and WHY I did it (was the reason due to it not being DES, or another reason)
+## Working retrospectively
 
-My changes to the repository should aid reuse, but the reality is that a massive factor relates to model complexity
+These are reflections specific to the retrospective application of the framework - identifying what was relatively easy to do at the end, versus what would have been better to do as you went along.
+
+**Dependency management**. Although possible to do at the end, it is good practice to do this from the start, so you avoid troubles for yourself if you change versions, or if you're collaborating with others in development.
+
+**Changing into a package**. It is not easy to just switch a complicated fully developed model into R package structure, particularly if unfamiliar with R packages
+
+* This reflection feels specific to the retrospective application of the framework. I think it would have been easier / more straightforward, if had wanted, to start with package structure from early on and then build it up as build up complexity
+* However, it is not impossible. I did it retrospectively for IPACS. So I think a part of this is complexity, and not just been reotrpsective. To turn IPACS into a package, it required a super deeper understanding of what code was all doing and how every line worked. ANd although I managed to improve my understanding of this model enough to make the documentation, to change it to package would've required way more (e.g. for example, knowing how to write each docstring and parameter inputs and outputs and so on)
+
+**Version control**. Version control history and CHANGELOG are both important. Version control history comes up alot in WP1 (ie. things have just been uploaded at end of project). In this case, that did happen, but by necessity of it needing to be kept **private**.
+
+## Barriers and enablers to applying the framework
+
+### Enablers
+
+**Familiarity with tools**. Already familiar with Quarto... although, I was less familiar with Shiny, and still got on fine with that.
+
+**Structure of the code**. Code already structured into functions and seperate folders, which was suitably organised and meant I didn't need to rearrange things.
+
+**Cffinit tool**. Very valuable for creating `CITATION.cff`
+
+### Barriers
+
+**Overlap**. I sometimes felt a bit uncertain due to overlap in content of minimal documentation (README) and detailed documentation (quarto website). I figure that overlap is not a bad thing, but sometimes wandered if I needed to keep everything in both. I suppose the guidance might be that its handy to have stuff in both, and that you could always refer to the other for more detail, or just do both with same details.
+
+**Model slow to run**. Found it was quickest with no parallel processing. Once did longest bit, from then on for that bit, I just loaded the pre-run results.
+
+## Shortcomings of the framework
+
+**Providing STARS as a step-by-step framework**. When applying the framwork, I didn't refer to the STARS paper, but instead to my own notes on each part of framework from paper, which I made for evaluating articles for WP1. I found it important/handy to have framework available as list with information needed about each part of framework incorporated into that list, rather than needing to refer to the paper for the details. Handy for list to contain all the details and suggestions from the paper!
+
+**Legacy code** is confusing, best to remove it if possible, this is not part of framework.
+
+* Removing legacy files as well as legacy code (e.g. blank sub folder READMEs)
+* But also within-file legacy code, inc. eg. exact duplicate lines of code, or inputs for functions that are no longer used, and not just like unused functions or lines of code
+* And whole files with old code
+
+### Extra items I did that weren't suggested in the STARS paper
+
+**License type and funding in minimal documentation**. When the README was my only documentation (for essential STARS), I add license type and funding, but neither are suggested in the current STARS framework. These are things we often choose to do, hence I add them.
+
+**Acronyms in detailed documentation**. Important as there are acronyms used elsewhere with no definitions given and found that quite confusing when I first was looking through things<br><br>Including acronyms used in the code itself... not random variable names, but like meaningful ones in file names or variable names, or acronyms used in comments.
+
+**Context (e.g. NICE appraisals, papers, reports) (i.e. related documents) in detailed documentation**. This felt important! To mention. It's that clear link from there to the code (like for paper in STRESS), but in this case, also vice versa, making sure to link from code to paper/s.
+
+**Detailed summary in detailed documentation**.This felt like one of the most important pages to me! A more technical explanation of the model. I'm not sure if you would cover it by including annotated reporting guidelines? I would argue not, as that could be as simple as yes/no, and very little info. And this is about having a clear, easy to read narrative of what the model does and how it works, in detail, which is fundamental to actually understanding a model, and therefore to reuse.
+
+**Diagrams**. I found these to be SUPER IMPORTANT for making things clearer in the detailed and plain english summaries as there was so much interlinked analysis.
+
+**CHANGELOG in repository**. It is just a nice thing to do! With stages of work, and specifically dating them, as Git commits are numerous.
+
+* CHANGELOG and releases are not mentioned in framework but feel important as handing at demarking specific points in time. In context of reproduction, that could be about e.g. specific version matching with paper, and allowing changes since. In context of reuse, that could just be generally, about changes made, showing model development, particularly if start using then gets worked on more.
+
+**Making a README look nice**. I improved the README clarity, structure and apeparance. Banner image with logos, badges, table of contents, info from the word document
+
+* Looking at compiled examples of good READMEs helped with this - <https://github.com/matiassingers/awesome-readme> (has been maintained for 10 years!)
+* This was quick (and fun) to do
+* Improves clarity and readability but no more deeper understanding
+
+### Things that are specific to R
+
+**Citation and changelog for R packages:** For R packages, they suggest including `NEWS.md` rather than `CHANGELOG.md`, and a `CITATION` file rather than a `CITATION.cff`. No one right way - you could argue to do one or the other - e.g. integration with CRAN of their suggestions, or of GitHub for `.cff`.
+
+## Other reflections
+
+**Structure of code**. I had planned to change to package as: (a) standardised structure of code, and (b) standardised documentation (e.g. docstrings, function descriptions). However, this is difficult to do with a fully developed model (as discussed in "retrospective" section), and the creation of a package adds alot of procedure and requirements that, on reflection, might nto actually be that beneficial. I ended up focusing on understanding code and developing documentation.
+
+* Think about scenarios where using a package structure can be necessary, handy, or unnecessary
+* There are varying thoughts and recommendations on how best to structure code, and its not one size fits all. Could be nice to refer to these examples? Like that nice R research compendium one?
+
+**Model complexity.** My changes to the repository should aid reuse, but the reality is that a massive factor relates to model complexity
 
 * Although I can't necessarily speak to this from a health economics perspective... perhaps that is a faciliator? Although there is a mention of it in their article - "...the sheer scale of the decision problem in terms of the systematic review, network meta-analyses, and clinical consultation work required. This in turn led to a complex, computationally expensive model"
 
-## Sorting notes into sections...
+## Approximate time, work and rework required to apply the framework
 
-### Things to mention to Tom
+**Essential components**. Speedy.
+
+**Optional components**.
+
+* **Writing detailed documentation**. Very long time, taking time to fully understand model, and then develop e.g. code walkthrough.
+* **Hosting detailed documentation**. Speedy.
+* **Creating web application**. Pretty quick, although I only add one aspect of the analysis to the app. In this case, it would be very complex to do all inputs modified in app and then code run, but would require consideration of how best to implement in this case, given computation time, number of inputs, complexity of inputs - and so, to do that, would take much more time.
+
+## Things to mention to Tom
 
 I didn't try to **reuse** this model, so its hard for me to speak to that purpose. If we had time/need for it/in hindsight otherwise, it would be beneficial to:
 
@@ -173,22 +192,8 @@ It could just be something I do informally for myself? If we do have another WP3
 * Although catch to that is people don't necessarily reuse code in its full code, but might just adapt or use chunks
 * What did people find when trying to reuse IPACS? That's a real practical applied example of the issue, could be worth mentioning?
 
-### Things to mention to Dawn and Darren
+## Things to mention to Dawn and Darren
 
 If get funding to continue working on it, one suggestion would be to remove legacy code within files, and legacy files themselves (e.g. old scripts for pre-processing).
 
 I wasn't able to run the survival analysis, got an error, might be a me problem, but could be something they could try and check if works for them?
-
-### Working retrospectively
-
-These are reflections specific to the retrospective application of the framework - identifying what was relatively easy to do at the end, versus what would have been better to do as you went along.
-
-**Dependency management**. Although possible to do at the end, it is good practice to do this from the start, so you avoid troubles for yourself if you change versions, or if you're collaborating with others in development.
-
-### Barriers and enablers to applying the framework
-
-### Shortcomings of the framework
-
-### Approximate time, work and rework required to apply the framework
-
-
