@@ -19,8 +19,6 @@ This markdown file aims to address the aims of:
 
 This is based on the logbook kept whilst applying the framework, `eomrcc_logbook.md`.
 
-## Rough notes
-
 ## What I did or did not implement from the framework (plus any extras!)
 
 An important reflection from this application of the framework is **whether there were any differences, compared to implementing for DES** (as this was not a DES model). I cannot comment on a comparison itself at this point, as I have not tried to do this for DES. However, I did find STARS to be highly applicable. This can be articulated by **what** I did or did not implement from the framework, and **why** (i.e. was reason for not implementing specific to it not being a DES model, or was it another reason).
@@ -57,40 +55,6 @@ Delving into each aspect of the detailed documentation...
 | Annotated simulation reporting guidelines | ❌ No because felt like duplication with information in NICE reports which are very detailed and follow standardised reporting requirements |
 | Clear description of model validation including its intended purpose | ❌ Not done as my knowledge is limited purely to this description from the [assessment report](https://www.nice.org.uk/guidance/ta964/documents/assessment-report):<br>"Within the model results and validation addendum which will follow this report, model outputs will be compared to the data used as model inputs (for example visual comparison to Kaplan Meier data) to ensure the appropriateness of model structure and data derivation. The model will then be compared to the projections from other models previously used for NICE STAs in the same decision point. Clinical expert input will be used to ensure that the model retains clinical face validity."
 
-<!--TODO: Finish sorting these notes into the categories below-->
-
-It took a **long time** to understand what the code did
-
-* What had been done before vs within code was crucial, particularly with lots of survival analyses
-* The NICE reports were key for me in understanding this and were my main resource. The detailed explanation of everything. Although still difficult as those are very complex and I had to understand/learn about techniques and how they work
-    * Would have been handy to link to that from repo as I had to find myself
-* Still don't fully understand!
-    * This was only getting enough understanding to write documentation and not full reuse
-* This was necessary for (a) model overview, and (b) code walkthrough
-    * Unlike reproductions, where I often just tried running code after reading paper, with no deeper understanding than that
-* This was greatly aided by looking what the code output at each step, which would not have been possible if I hadn't been able to run the model.
-* Main barrier was code complexity (lots of analyses, lots of interlinked functions) - inescapable given the large ambitions of this project and I don't have any suggestion for how it could be less complex
-
-They had packages listed and R version, but I had difficulty trying to backdate to work with their R version and just ended up on latest of everything. I made renv which may help address it as that has R version and package version and all dependencies, but also maybe not, as I know some people struggle to restrore renv, though I can't speak from experience on this.
-
-Minimal docs: "how to vary parameters to run new experiments" - initially I found this requirement quite daunting but then I realised it can be quite a simple statement referring to the scripts and/or functions as you would need to change (rather than delving into the specifics)
-
-* Essential STARS doesn't require deeper understanding from you, or to be giving deeper understand to the reader, and can just be about guiding them on to where to get started
-
-Regarding the web application, scope is important, and capacity, and what and why you make an app. In this case, computationally intensive and loads of inputs and complicated inputs. Not as simple as just popping into into an app.
-
-* They are hoping for grant to explore this. They will need to consider if users can sit and wait through run time, or if it can be sped up somehow, or if you can have some elements pre run, or limited to certain part of analysis.
-* Regardless of what level, it is still possible to achieve their stated aims to varying degrees
-    * `Model_Structure.R` -
-        * "During Phase 2 a Shiny front-end will be added to the model which will allow an alternative mechanism to upload these types of inputs" - which is in reference to the inputs from Excel
-        * "Note that draw_plots will be a switch in the shiny application" - which is in reference to the draw_plots input of `f_surv_runAllTSD14()`
-    * [Final analysis plan](https://www.nice.org.uk/guidance/gid-ta11186/documents/assessment-report-3) -
-        * "Within Phase 4 of the project, the health economic model will be embedded into an interactive web browser using R-Shiny functionality to provide an easy-to-understand user-interface. This is intended to test the use of such functionality to support the development, critique and understanding of the model structure (and underlying R code) for decision makers and other stakeholders in future models."
-    * [Assessment report](https://www.nice.org.uk/guidance/ta964/documents/assessment-report) -
-        * "A later stage of this pilot following the evaluation of cabozantinib + nivolumab will involve the incorporation of a Shiny front-end to the R model. Shiny is an open source R package enables the user to build web applications using R. 221 This will allow model users to interact via an easyto-understand user-interface operating via their web browser."
-
-## Sorting notes into sections...
-
 ## Working retrospectively
 
 These are reflections specific to the retrospective application of the framework - identifying what was relatively easy to do at the end, versus what would have been better to do as you went along.
@@ -119,6 +83,20 @@ These are reflections specific to the retrospective application of the framework
 **Overlap**. I sometimes felt a bit uncertain due to overlap in content of minimal documentation (README) and detailed documentation (quarto website). I figure that overlap is not a bad thing, but sometimes wandered if I needed to keep everything in both. I suppose the guidance might be that its handy to have stuff in both, and that you could always refer to the other for more detail, or just do both with same details.
 
 **Model slow to run**. Found it was quickest with no parallel processing. Once did longest bit, from then on for that bit, I just loaded the pre-run results.
+
+**Varying parameters.** When implementing the minimal documentation, the requirement to explain "how to vary parameters to run new experiments" was initially quite daunting. However, I then realised  it can be quite a simple statement referring to the scripts and/or functions as you would need to change (rather than delving into the specifics). *Note. Essential STARS doesn't require deeper understanding from you, or to be giving deeper understand to the reader, and can just be about guiding them on to where to get started.*
+
+It took a **long time** to understand what the code did
+
+* This was necessary for (a) model overview, and (b) code walkthrough
+    * Unlike reproductions, where I often just tried running code after reading paper, with no deeper understanding than that
+* What had been done before vs within code was crucial, particularly with lots of survival analyses
+* The NICE reports were key for me in understanding this and were my main resource. The detailed explanation of everything. Although still difficult as those are very complex and I had to understand/learn about techniques and how they work
+    * Would have been handy to link to that from repo as I had to find myself
+* Still don't fully understand!
+    * This was only getting enough understanding to write documentation and not full reuse
+* This was greatly aided by looking what the code output at each step, which would not have been possible if I hadn't been able to run the model.
+* Main barrier was code complexity (lots of analyses, lots of interlinked functions) - inescapable given the large ambitions of this project and I don't have any suggestion for how it could be less complex
 
 ## Shortcomings of the framework
 
@@ -156,6 +134,8 @@ These are reflections specific to the retrospective application of the framework
 
 **Citation and changelog for R packages:** For R packages, they suggest including `NEWS.md` rather than `CHANGELOG.md`, and a `CITATION` file rather than a `CITATION.cff`. No one right way - you could argue to do one or the other - e.g. integration with CRAN of their suggestions, or of GitHub for `.cff`.
 
+**Backdating and renv**. They had packages listed and R version, but I had difficulty trying to backdate to work with their R version and just ended up on latest of everything. I made renv which may help address it as that has R version and package version and all dependencies, but also maybe not, as I know some people struggle to restrore renv, though I can't speak from experience on this.
+
 ## Other reflections
 
 **Structure of code**. I had planned to change to package as: (a) standardised structure of code, and (b) standardised documentation (e.g. docstrings, function descriptions). However, this is difficult to do with a fully developed model (as discussed in "retrospective" section), and the creation of a package adds alot of procedure and requirements that, on reflection, might nto actually be that beneficial. I ended up focusing on understanding code and developing documentation.
@@ -167,6 +147,20 @@ These are reflections specific to the retrospective application of the framework
 
 * Although I can't necessarily speak to this from a health economics perspective... perhaps that is a faciliator? Although there is a mention of it in their article - "...the sheer scale of the decision problem in terms of the systematic review, network meta-analyses, and clinical consultation work required. This in turn led to a complex, computationally expensive model"
 
+**Web application.** Regarding the web application, scope is important, and capacity, and what and why you make an app. In this case, computationally intensive and loads of inputs and complicated inputs. Not as simple as just popping into into an app.
+
+* They are hoping for grant to explore this. They will need to consider if users can sit and wait through run time, or if it can be sped up somehow, or if you can have some elements pre run, or limited to certain part of analysis.
+* Regardless of what level, it is still possible to achieve their stated aims to varying degrees
+    * `Model_Structure.R` -
+        * "During Phase 2 a Shiny front-end will be added to the model which will allow an alternative mechanism to upload these types of inputs" - which is in reference to the inputs from Excel
+        * "Note that draw_plots will be a switch in the shiny application" - which is in reference to the draw_plots input of `f_surv_runAllTSD14()`
+    * [Final analysis plan](https://www.nice.org.uk/guidance/gid-ta11186/documents/assessment-report-3) -
+        * "Within Phase 4 of the project, the health economic model will be embedded into an interactive web browser using R-Shiny functionality to provide an easy-to-understand user-interface. This is intended to test the use of such functionality to support the development, critique and understanding of the model structure (and underlying R code) for decision makers and other stakeholders in future models."
+    * [Assessment report](https://www.nice.org.uk/guidance/ta964/documents/assessment-report) -
+        * "A later stage of this pilot following the evaluation of cabozantinib + nivolumab will involve the incorporation of a Shiny front-end to the R model. Shiny is an open source R package enables the user to build web applications using R. 221 This will allow model users to interact via an easyto-understand user-interface operating via their web browser."
+
+**Attempting to reuse the model**. - I felt that I didn't try to reuse this model, so its hard for me to speak to that purpose. I thought that perhaps it would be worth planning new uses for and attempting to reuse for new purposes some of the WP1 or WP3 models. However, I then considered that (a) people don't necessarily reuse code in its full code, but might just adapt or use chunks (b) do we have some learnings here frmo people attempting to reuse IPACS, as that's a real life example of the issue, and (c) you could argue that trying to figure out how to code scenarios when that code was not otherwise provided, fulfills this!
+
 ## Approximate time, work and rework required to apply the framework
 
 **Essential components**. Speedy.
@@ -176,21 +170,6 @@ These are reflections specific to the retrospective application of the framework
 * **Writing detailed documentation**. Very long time, taking time to fully understand model, and then develop e.g. code walkthrough.
 * **Hosting detailed documentation**. Speedy.
 * **Creating web application**. Pretty quick, although I only add one aspect of the analysis to the app. In this case, it would be very complex to do all inputs modified in app and then code run, but would require consideration of how best to implement in this case, given computation time, number of inputs, complexity of inputs - and so, to do that, would take much more time.
-
-## Things to mention to Tom
-
-I didn't try to **reuse** this model, so its hard for me to speak to that purpose. If we had time/need for it/in hindsight otherwise, it would be beneficial to:
-
-* (a) read paper
-* (b) plan scope of things to reproduce
-* (c) plan new use for and reuse of the model - i.e. can i get these three new scenarios I came up with to run, that are similar or maybe slightly different to the paper
-
-It could be something I could do retrospectively on a WP1, or retro or pro on a WP3? Or not at all?
-
-It could just be something I do informally for myself? If we do have another WP3 that I do like this - just as part of helping me develop and understand differences when actually trying to reuse code
-
-* Although catch to that is people don't necessarily reuse code in its full code, but might just adapt or use chunks
-* What did people find when trying to reuse IPACS? That's a real practical applied example of the issue, could be worth mentioning?
 
 ## Things to mention to Dawn and Darren
 
