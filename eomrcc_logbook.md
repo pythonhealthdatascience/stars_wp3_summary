@@ -640,3 +640,111 @@ Finished app.
 ### Friday 27 September
 
 Created release for app.
+
+### Monday 21 October
+
+Making changes following comments from Dawn Lee, Darren Burns and Ed Wilson. They were very pleased with the work, that it was exactly along the lines of what they had hoped. The web app focus was very handy, as they feel that is one of the most complex parts of the analysis for people to understand.
+
+I retrospectively archived the repository on Zenodo for prior releases I'd created. I think it's worth highlighting this as something that can be done retrospectively, if you have a GitHub version history - you can make a release retrospectively, and you can upload that release onto Zenodo retrospectively.
+
+#### Retrospective creation of release
+
+Create an annotated tag for a specific commit:
+
+```
+git tag v0.1.0 9146a68
+git push origin v0.1.0
+```
+
+Go to tags on GitHub (select under Releases/Tags tab, or go to URL following format `github.com/username/reponame/tags`). Choose the tag, then select "Create release from tag" (button in top right).
+
+#### Retrospective add of release to Zenodo
+
+I explored a few options for this (first in Zenodo sandbox)...
+
+**(A) Uploading manually**. The issue with this is that I don't have a GitHub-synced repository yet without doing a first release. Also, I'm not sure if this would properly link to GitHub.
+
+**(B) Method from StackOverflow**. Whilst this seemed to work, the release remained constantly as received and loading, and it couldn't seem to create the repository. This method was from <https://github.com/zenodo/zenodo/issues/1463#issuecomment-2349177518>. I made the `zenodo_archiver.py` file (as below). I set the repository to sync on Zenodo sandbox. I got the access token from the webhook page in the repository settings. I then ran the command `python3 zenodo_archiver.py pythonhealthdatascience stars-eom-rcc v1.1.0 {{token}}`.
+
+```
+# Source: https://github.com/zenodo/zenodo/issues/1463#issuecomment-2349177518
+__author__ = ('prohde', 'dr-joe-wirth')
+import requests, sys
+
+# functions
+def _submit(user_name:str, repo_name:str, tag:str, access_token:str) -> None:
+    """tricks Zenodo into archiving a pre-existing release
+
+    Args:
+        user_name (str): github username
+        repo_name (str): github repository name
+        tag (str): the desired tag to archive
+        access_token (str): the access token from webhook page in repo settings
+    """
+    # constant
+    HEADERS = {"Accept": "application/vnd.github.v3+json"}
+
+    # build the repo
+    repo = "/".join((user_name, repo_name))
+    
+    # get the repo response and the release response for the repo
+    repo_response = requests.get(f"https://api.github.com/repos/{repo}", headers=HEADERS)
+    release_response = requests.get(f"https://api.github.com/repos/{repo}/releases", headers=HEADERS)
+    
+    # get the data for the desired release
+    desired_release = [x for x in release_response.json() if x['tag_name'] == tag].pop()
+    
+    # build the payload for the desired release
+    payload = {"action": "published", "release": desired_release, "repository": repo_response.json()}
+    
+    # submit the payload to zenodo's api
+    submit_response = requests.post(
+        f"https://sandbox.zenodo.org/api/hooks/receivers/github/events/?access_token={access_token}",
+        json=payload
+    )
+    
+    # print the response
+    print(submit_response)
+
+
+def _main() -> None:
+    """main runner function
+    """
+    # parse command line arguments
+    user  = sys.argv[1]
+    repo  = sys.argv[2]
+    tag   = sys.argv[3]
+    token = sys.argv[4]
+    
+    # submit to zenodo
+    _submit(user, repo, tag, token)
+
+
+# entrypoint
+if __name__ == "__main__":
+    _main()
+
+```
+
+**(C) Deleting old releases and remaking them**. I deleted the release/s, then set the repository to sync with Zenodo, then remade the releases via tags (using the method mentioned above). This was easy to do as the tags from those releases remained (even if the release itself was gone) **Check this though, might be that these were releases I'd made from tags**. However, this also got stuck on received/loading, so I contact Zenodo helpdesk.
+
+```
+v1.1.0
+7c11b2b
+
+v1.1.0 - 2024-08-16
+
+Implemented the essential components of the STARS framework (exc. open science archive).
+
+### Added
+
+* `CITATION.cff` and GitHub action to check validity (`cff_validation.yaml`)
+
+### Changed
+
+* Extended `README.md` to include some instructions for installing and running the model, more detailed repositoriy overview, citation information, ORCID IDs, acknowledgements, license and funding information
+
+### Fixed
+
+* Formatting of copyright statement in `LICENSE`
+```
