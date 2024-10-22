@@ -68,6 +68,8 @@ These are reflections specific to the retrospective application of the framework
 
 **Version control**. Version control history and CHANGELOG are both important. Version control history comes up alot in WP1 (ie. things have just been uploaded at end of project). In this case, that did happen, but by necessity of it needing to be kept **private**.
 
+**Zenodo**. Despite having not set up Zenodo syncs, it was relatively straightforward to backdate this. I had made releases along the way, but you could backdate these too. This is likely to be a common problem, so it's probably worth sharing the steps for doing this.
+
 ## Barriers and enablers to applying the framework
 
 ### Enablers
@@ -150,6 +152,7 @@ It took a **long time** to understand what the code did
 **Web application.** Regarding the web application, scope is important, and capacity, and what and why you make an app. In this case, computationally intensive and loads of inputs and complicated inputs. Not as simple as just popping into into an app.
 
 * They are hoping for grant to explore this. They will need to consider if users can sit and wait through run time, or if it can be sped up somehow, or if you can have some elements pre run, or limited to certain part of analysis.
+* I implented a **pilot** web app showing part of the analysis (valid treatment sequences). They said that was great, as they feel that to be one of the most complex bits of the analysis for people to get their head around, and so very hand to be able to explore that within an app.
 * Regardless of what level, it is still possible to achieve their stated aims to varying degrees
     * `Model_Structure.R` -
         * "During Phase 2 a Shiny front-end will be added to the model which will allow an alternative mechanism to upload these types of inputs" - which is in reference to the inputs from Excel
