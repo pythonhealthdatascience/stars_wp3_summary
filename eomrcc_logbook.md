@@ -641,7 +641,7 @@ Finished app.
 
 Created release for app.
 
-### Monday 21 October
+### Monday 21 October + Tuesday 22 October
 
 Making changes following comments from Dawn Lee, Darren Burns and Ed Wilson. They were very pleased with the work, that it was exactly along the lines of what they had hoped. The web app focus was very handy, as they feel that is one of the most complex parts of the analysis for people to understand.
 
@@ -660,11 +660,7 @@ Go to tags on GitHub (select under Releases/Tags tab, or go to URL following for
 
 #### Retrospective add of release to Zenodo
 
-I explored a few options for this (first in Zenodo sandbox)...
-
-**(A) Uploading manually**. The issue with this is that I don't have a GitHub-synced repository yet without doing a first release. Also, I'm not sure if this would properly link to GitHub.
-
-**(B) Method from StackOverflow**. Whilst this seemed to work, the release remained constantly as received and loading, and it couldn't seem to create the repository. This method was from <https://github.com/zenodo/zenodo/issues/1463#issuecomment-2349177518>. I made the `zenodo_archiver.py` file (as below). I set the repository to sync on Zenodo sandbox. I got the access token from the webhook page in the repository settings. I then ran the command `python3 zenodo_archiver.py pythonhealthdatascience stars-eom-rcc v1.1.0 {{token}}`.
+This method was from <https://github.com/zenodo/zenodo/issues/1463#issuecomment-2349177518>. I made the `zenodo_archiver.py` file (as below). I set the repository to sync on Zenodo sandbox. I got the access token from the webhook page in the repository settings. I then ran the command `python3 zenodo_archiver.py pythonhealthdatascience stars-eom-rcc v1.1.0 {{token}}`. You should see `<Response [202]>, which indicates it has been successful.
 
 ```
 # Source: https://github.com/zenodo/zenodo/issues/1463#issuecomment-2349177518
@@ -726,25 +722,15 @@ if __name__ == "__main__":
 
 ```
 
-**(C) Deleting old releases and remaking them**. I deleted the release/s, then set the repository to sync with Zenodo, then remade the releases via tags (using the method mentioned above). This was easy to do as the tags from those releases remained (even if the release itself was gone) **Check this though, might be that these were releases I'd made from tags**. However, this also got stuck on received/loading, so I contact Zenodo helpdesk.
+I then amended the record on Zenodo to:
 
-```
-v1.1.0
-7c11b2b
+1. Add myself to the citation
+  * Heather
+  * Amy
+  * 0000-0002-6596-3479
+  * Peninsula Collaboration for Health Operational Research and Data Science (PenCHORD), University of Exeter Medical School
+2. Add a "notes" description which read along the lines of:
 
-v1.1.0 - 2024-08-16
+> This repository was forked from "nice-digital/NICE-model-repo". It has been modified by Amy Heather as part of work package 3 on the project "STARS: Sharing Tools and Artefacts for Reproducible Simulations". Changes from the original repository are described in the "CHANGELOG.md" and release notes. Whilst this was add to Zenodo on 22nd October 2024, the release was originally created on 16th August 2024.
 
-Implemented the essential components of the STARS framework (exc. open science archive).
-
-### Added
-
-* `CITATION.cff` and GitHub action to check validity (`cff_validation.yaml`)
-
-### Changed
-
-* Extended `README.md` to include some instructions for installing and running the model, more detailed repositoriy overview, citation information, ORCID IDs, acknowledgements, license and funding information
-
-### Fixed
-
-* Formatting of copyright statement in `LICENSE`
-```
+3. Add a "technical info" description with a copy of the formatted CHANGELOG release notes.
